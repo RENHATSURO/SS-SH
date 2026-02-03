@@ -1,0 +1,177 @@
+-- SERVICES
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+local player = Players.LocalPlayer
+
+-- SCREEN GUI
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = "MainMenuGui"
+ScreenGui.ResetOnSpawn = false
+ScreenGui.Parent = player:WaitForChild("PlayerGui")
+
+------------------------------------------------
+-- FONCTION DRAGGABLE
+------------------------------------------------
+local function makeDraggable(frame)
+	local dragging, dragInput, startPos, startInputPos
+
+	frame.InputBegan:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = true
+			startInputPos = input.Position
+			startPos = frame.Position
+		end
+	end)
+
+	frame.InputEnded:Connect(function(input)
+		if input.UserInputType == Enum.UserInputType.MouseButton1 then
+			dragging = false
+		end
+	end)
+
+	UserInputService.InputChanged:Connect(function(input)
+		if dragging and input.UserInputType == Enum.UserInputType.MouseMovement then
+			local delta = input.Position - startInputPos
+			frame.Position = UDim2.new(
+				startPos.X.Scale,
+				startPos.X.Offset + delta.X,
+				startPos.Y.Scale,
+				startPos.Y.Offset + delta.Y
+			)
+		end
+	end)
+end
+
+------------------------------------------------
+-- MENU PRINCIPAL
+------------------------------------------------
+local MainFrame = Instance.new("Frame")
+MainFrame.Size = UDim2.new(0, 400, 0, 350)
+MainFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
+MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+MainFrame.BorderSizePixel = 0
+MainFrame.Parent = ScreenGui
+
+makeDraggable(MainFrame)
+
+-- TITRE
+local Title = Instance.new("TextLabel")
+Title.Size = UDim2.new(1, 0, 0, 40)
+Title.BackgroundTransparency = 1
+Title.Text = "MENU PRINCIPAL"
+Title.TextColor3 = Color3.fromRGB(255, 255, 255)
+Title.Font = Enum.Font.GothamBold
+Title.TextSize = 18
+Title.Parent = MainFrame
+
+------------------------------------------------
+-- SCROLLING FRAME
+------------------------------------------------
+local Scroll = Instance.new("ScrollingFrame")
+Scroll.Position = UDim2.new(0, 10, 0, 50)
+Scroll.Size = UDim2.new(1, -20, 1, -60)
+Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
+Scroll.ScrollBarImageTransparency = 0.2
+Scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
+Scroll.BackgroundTransparency = 1
+Scroll.Parent = MainFrame
+
+local UIListLayout = Instance.new("UIListLayout")
+UIListLayout.Padding = UDim.new(0, 10)
+UIListLayout.Parent = Scroll
+
+UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
+	Scroll.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 10)
+end)
+
+------------------------------------------------
+-- FONCTION SOUS MENU
+------------------------------------------------
+local function createSubMenu(text)
+	local SubFrame = Instance.new("Frame")
+	SubFrame.Size = UDim2.new(1, 0, 0, 70)
+	SubFrame.BackgroundColor3 = Color3.fromRGB(60, 0, 80) -- violet foncé
+	SubFrame.BorderSizePixel = 0
+	SubFrame.Parent = Scroll
+
+	-- TEXTE
+	local Label = Instance.new("TextLabel")
+	Label.Position = UDim2.new(0, 10, 0, 10)
+	Label.Size = UDim2.new(0.6, -20, 1, -20)
+	Label.BackgroundTransparency = 1
+	Label.Text = text
+	Label.TextWrapped = true
+	Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Label.Font = Enum.Font.Gotham
+	Label.TextSize = 14
+	Label.TextXAlignment = Enum.TextXAlignment.Left
+	Label.Parent = SubFrame
+
+	-- BOUTON
+	local Button = Instance.new("TextButton")
+	Button.Position = UDim2.new(0.65, 0, 0.2, 0)
+	Button.Size = UDim2.new(0.3, 0, 0.6, 0)
+	Button.Text = "A REMPLACER"
+	Button.BackgroundColor3 = Color3.fromRGB(90, 0, 120)
+	Button.TextColor3 = Color3.fromRGB(255, 255, 255)
+	Button.Font = Enum.Font.GothamBold
+	Button.TextSize = 14
+	Button.Parent = SubFrame
+
+	-- SCRIPT CLIENT MODIFIABLE
+	Button.MouseButton1Click:Connect(function()
+		------------------------------------
+		-- ICI TU METS TON SCRIPT CLIENT
+		print("SCRIPT EXECUTÉ")
+		------------------------------------
+
+		Button.Text = "Executed"
+		Button.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+	end)
+end
+
+------------------------------------------------
+-- EXEMPLES DE SOUS MENUS
+------------------------------------------------
+createSubMenu("test")
+createSubMenu("test")
+createSubMenu("test")
+
+------------------------------------------------
+-- PETIT MENU X
+------------------------------------------------
+local ToggleFrame = Instance.new("Frame")
+ToggleFrame.Size = UDim2.new(0, 50, 0, 50)
+ToggleFrame.Position = UDim2.new(0.1, 0, 0.2, 0)
+ToggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+ToggleFrame.BorderSizePixel = 0
+ToggleFrame.Parent = ScreenGui
+
+makeDraggable(ToggleFrame)
+
+local ToggleButton = Instance.new("TextButton")
+ToggleButton.Size = UDim2.new(1, 0, 1, 0)
+ToggleButton.Text = "X"
+ToggleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+ToggleButton.Font = Enum.Font.GothamBold
+ToggleButton.TextSize = 22
+ToggleButton.BackgroundTransparency = 1
+ToggleButton.Parent = ToggleFrame
+
+local menuVisible = true
+
+ToggleButton.MouseButton1Click:Connect(function()
+	menuVisible = not menuVisible
+	MainFrame.Visible = menuVisible
+end)
+
+ToggleButton.MouseEnter:Connect(function()
+	ToggleFrame.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
+	ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+end)
+
+ToggleButton.MouseLeave:Connect(function()
+	ToggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
+	ToggleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
+end)
