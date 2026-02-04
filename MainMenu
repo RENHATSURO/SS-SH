@@ -1,20 +1,14 @@
--- SERVICES
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
 
 local player = Players.LocalPlayer
-
--- SCREEN GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "MainMenuGui"
 ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
-
-------------------------------------------------
--- FONCTION DRAGGABLE
-------------------------------------------------
 local function makeDraggable(frame)
-	local dragging, dragInput, startPos, startInputPos
+	local dragging = false
+	local startPos, startInputPos
 
 	frame.InputBegan:Connect(function(input)
 		if input.UserInputType == Enum.UserInputType.MouseButton1 then
@@ -42,20 +36,14 @@ local function makeDraggable(frame)
 		end
 	end)
 end
-
-------------------------------------------------
--- MENU PRINCIPAL
-------------------------------------------------
 local MainFrame = Instance.new("Frame")
-MainFrame.Size = UDim2.new(0, 400, 0, 350)
+MainFrame.Size = UDim2.new(0, 420, 0, 380)
 MainFrame.Position = UDim2.new(0.3, 0, 0.2, 0)
 MainFrame.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 MainFrame.BorderSizePixel = 0
 MainFrame.Parent = ScreenGui
 
 makeDraggable(MainFrame)
-
--- TITRE
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 0, 40)
 Title.BackgroundTransparency = 1
@@ -64,114 +52,568 @@ Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.Font = Enum.Font.GothamBold
 Title.TextSize = 18
 Title.Parent = MainFrame
-
-------------------------------------------------
--- SCROLLING FRAME
-------------------------------------------------
 local Scroll = Instance.new("ScrollingFrame")
 Scroll.Position = UDim2.new(0, 10, 0, 50)
 Scroll.Size = UDim2.new(1, -20, 1, -60)
 Scroll.CanvasSize = UDim2.new(0, 0, 0, 0)
 Scroll.ScrollBarImageTransparency = 0.2
-Scroll.ScrollBarImageColor3 = Color3.fromRGB(255, 255, 255)
 Scroll.BackgroundTransparency = 1
 Scroll.Parent = MainFrame
 
 local UIListLayout = Instance.new("UIListLayout")
-UIListLayout.Padding = UDim.new(0, 10)
+UIListLayout.Padding = UDim.new(0, 8)
 UIListLayout.Parent = Scroll
 
 UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 	Scroll.CanvasSize = UDim2.new(0, 0, 0, UIListLayout.AbsoluteContentSize.Y + 10)
 end)
+local SubMenus = {
+	[1] = {
+		title = "[MM2]-Hilight Hub",
+		onExecute = function()
+			print("Executed hilighHub sucessfully")
+			loadstring(game:HttpGet("https://raw.githubusercontent.com/ThatSick/HighlightMM2/main/Main"))()
+		end
+	},
 
-------------------------------------------------
--- FONCTION SOUS MENU
-------------------------------------------------
-local function createSubMenu(text)
+	[2] = {
+		title = "[MM2-Vertex Hub]",
+		onExecute = function()
+			print("Executed Vertex Hub sucessfully")
+			loadstring(game:HttpGet('https://raw.smokingscripts.org/vertex.lua'))()
+		end
+	},
+
+	[3] = {
+		title = "[MM2]",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[4] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[5] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[6] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[7] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[8] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[9] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[10] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[11] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[12] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[13] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[14] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[15] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[16] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[17] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[18] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[19] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[20] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[21] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[22] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[23] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[24] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[25] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[26] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[27] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[28] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[29] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[30] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[31] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[32] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[33] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[34] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[35] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[36] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[37] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[38] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[39] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[40] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[41] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[42] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[43] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[44] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[45] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[46] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[47] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[48] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[49] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[50] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[51] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[52] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[53] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[54] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[55] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[56] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[57] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[58] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[59] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[60] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[61] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[62] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[63] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[64] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[65] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[66] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	[67] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[68] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[69] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+
+	[70] = {
+		title = "God Mode",
+		onExecute = function()
+			print("God Mode exécuté")
+		end
+	},
+
+	[71] = {
+		title = "Speed Hack",
+		onExecute = function()
+			print("Speed exécuté")
+		end
+	},
+
+	[72] = {
+		title = "Fly",
+		onExecute = function()
+			print("Fly exécuté")
+		end
+	},
+	-- ...
+	-- TU CONTINUES JUSQU’À 50
+}
+
+-- 🔥 EXEMPLE : modifier SEULEMENT le 37e
+SubMenus[37].onExecute = function()
+	print("salutsalut")
+end
+SubMenus[12].onExecute = function()
+	print("menu 12 exécuté")
+end
+local function createSubMenu(data)
 	local SubFrame = Instance.new("Frame")
-	SubFrame.Size = UDim2.new(1, 0, 0, 70)
-	SubFrame.BackgroundColor3 = Color3.fromRGB(60, 0, 80) -- violet foncé
+	SubFrame.Size = UDim2.new(1, 0, 0, 60)
+	SubFrame.BackgroundColor3 = Color3.fromRGB(60, 0, 80)
 	SubFrame.BorderSizePixel = 0
 	SubFrame.Parent = Scroll
 
-	-- TEXTE
 	local Label = Instance.new("TextLabel")
-	Label.Position = UDim2.new(0, 10, 0, 10)
-	Label.Size = UDim2.new(0.6, -20, 1, -20)
+	Label.Position = UDim2.new(0, 10, 0, 0)
+	Label.Size = UDim2.new(0.6, -20, 1, 0)
 	Label.BackgroundTransparency = 1
-	Label.Text = text
-	Label.TextWrapped = true
+	Label.Text = data.title
 	Label.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Label.Font = Enum.Font.Gotham
 	Label.TextSize = 14
 	Label.TextXAlignment = Enum.TextXAlignment.Left
 	Label.Parent = SubFrame
 
-	-- BOUTON
 	local Button = Instance.new("TextButton")
 	Button.Position = UDim2.new(0.65, 0, 0.2, 0)
 	Button.Size = UDim2.new(0.3, 0, 0.6, 0)
-	Button.Text = "A REMPLACER"
+	Button.Text = "EXECUTE"
 	Button.BackgroundColor3 = Color3.fromRGB(90, 0, 120)
 	Button.TextColor3 = Color3.fromRGB(255, 255, 255)
 	Button.Font = Enum.Font.GothamBold
 	Button.TextSize = 14
 	Button.Parent = SubFrame
 
-	-- SCRIPT CLIENT MODIFIABLE
 	Button.MouseButton1Click:Connect(function()
-		------------------------------------
-		-- ICI TU METS TON SCRIPT CLIENT
-		print("SCRIPT EXECUTÉ")
-		------------------------------------
+		if data.onExecute then
+			data.onExecute()
+		end
 
-		Button.Text = "Executed"
-		Button.BackgroundColor3 = Color3.fromRGB(0, 100, 0)
+		Button.Text = "DONE"
+		Button.BackgroundColor3 = Color3.fromRGB(0, 120, 0)
 	end)
 end
-
-------------------------------------------------
--- EXEMPLES DE SOUS MENUS
-------------------------------------------------
-createSubMenu("test")
-createSubMenu("test")
-createSubMenu("test")
-
-------------------------------------------------
--- PETIT MENU X
-------------------------------------------------
-local ToggleFrame = Instance.new("Frame")
-ToggleFrame.Size = UDim2.new(0, 50, 0, 50)
-ToggleFrame.Position = UDim2.new(0.1, 0, 0.2, 0)
-ToggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-ToggleFrame.BorderSizePixel = 0
-ToggleFrame.Parent = ScreenGui
-
-makeDraggable(ToggleFrame)
-
-local ToggleButton = Instance.new("TextButton")
-ToggleButton.Size = UDim2.new(1, 0, 1, 0)
-ToggleButton.Text = "X"
-ToggleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
-ToggleButton.Font = Enum.Font.GothamBold
-ToggleButton.TextSize = 22
-ToggleButton.BackgroundTransparency = 1
-ToggleButton.Parent = ToggleFrame
-
-local menuVisible = true
-
-ToggleButton.MouseButton1Click:Connect(function()
-	menuVisible = not menuVisible
-	MainFrame.Visible = menuVisible
-end)
-
-ToggleButton.MouseEnter:Connect(function()
-	ToggleFrame.BackgroundColor3 = Color3.fromRGB(200, 0, 0)
-	ToggleButton.TextColor3 = Color3.fromRGB(0, 0, 0)
-end)
-
-ToggleButton.MouseLeave:Connect(function()
-	ToggleFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
-	ToggleButton.TextColor3 = Color3.fromRGB(255, 0, 0)
-end)
+for _, menuData in ipairs(SubMenus) do
+	createSubMenu(menuData)
+end
