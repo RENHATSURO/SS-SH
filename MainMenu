@@ -69,10 +69,10 @@ UIListLayout:GetPropertyChangedSignal("AbsoluteContentSize"):Connect(function()
 end)
 local SubMenus = {
 	[1] = {
-		title = "[⚠️MM2⚠️]-Hilight Hub",
+		title = "[🔨MM2🔨]-Advanced Autofarm (homemade)",
 		onExecute = function()
-			print("Executed hilighHub sucessfully")
-			loadstring(game:HttpGet("https://raw.githubusercontent.com/ThatSick/HighlightMM2/main/Main"))()
+			print("Executed Skibidibababoi sucessfully")
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/RENHATSURO/Pathfinding/refs/heads/main/AutoCns'))()
 		end
 	},
 
